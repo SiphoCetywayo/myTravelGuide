@@ -10,24 +10,25 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mytravelguide.Model.tourGuideModel;
+import com.example.mytravelguide.Model.tourGuideData;
 import com.example.mytravelguide.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class TravelGuideRecyclerView extends RecyclerView.Adapter<TravelGuideRecyclerView.ViewHolder> {
-    private List<tourGuideModel> tourGuideModelList;
+public class TravelGuideRecyclerViewAdapter extends RecyclerView.Adapter<TravelGuideRecyclerViewAdapter.ViewHolder> {
+    private ArrayList<tourGuideData> tourGuideDataList;
     private Context mContext;
 
-    public TravelGuideRecyclerView( Context context,List<tourGuideModel> tourGuideModels){
-        this.tourGuideModelList = tourGuideModels;
+    public TravelGuideRecyclerViewAdapter(Context context, ArrayList<tourGuideData> tourGuideDataList){
+        this.tourGuideDataList = tourGuideDataList;
         this.mContext = context;
     }
 
     @NonNull
     @Override
-    public TravelGuideRecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TravelGuideRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(mContext)
                 .inflate(R.layout.hotels_list, parent, false);
@@ -35,14 +36,14 @@ public class TravelGuideRecyclerView extends RecyclerView.Adapter<TravelGuideRec
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TravelGuideRecyclerView.ViewHolder holder, int position) {
-        tourGuideModel tourGuideModel = tourGuideModelList.get(position);
-        String PosterLink = tourGuideModel.getPoster();
+    public void onBindViewHolder(@NonNull TravelGuideRecyclerViewAdapter.ViewHolder holder, int position) {
+        tourGuideData tourGuideData = tourGuideDataList.get(position);
+        String PosterLink = tourGuideData.getPoster();
 
-        holder.business_Name.setText(tourGuideModel.getBusiness_Name());
-        holder.formatted_address.setText(tourGuideModel.getAddress());
-        holder.Trading_Hours.setText(tourGuideModel.isOpen_Now());
-        holder.ratings.setText(tourGuideModel.getRatings());
+        holder.business_Name.setText(tourGuideData.getBusiness_Name());
+        holder.formatted_address.setText(tourGuideData.getAddress());
+        holder.Trading_Hours.setText(tourGuideData.isOpen_Now());
+        holder.ratings.setText(tourGuideData.getRatings());
 
         Picasso.get()
                 .load(PosterLink)
@@ -52,7 +53,7 @@ public class TravelGuideRecyclerView extends RecyclerView.Adapter<TravelGuideRec
 
     @Override
     public int getItemCount() {
-        return tourGuideModelList.size();
+        return tourGuideDataList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

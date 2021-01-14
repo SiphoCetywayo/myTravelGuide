@@ -1,16 +1,23 @@
 package com.example.mytravelguide.Model;
 
-import java.io.Serializable;
 
-public class tourGuideModel implements Serializable {
-    private static final long ID =1L;
+
+public class tourGuideData  {
     private String address;
     private String business_Name;
     private String isOpen_Now;
     private  String poster;
-    private int ratings;
+    private String ratings;
 
-    public tourGuideModel(){
+    public tourGuideData(){
+    }
+
+    public tourGuideData(String address, String business_Name, String isOpen_Now, String poster, String ratings) {
+        this.address = address;
+        this.business_Name = business_Name;
+        this.isOpen_Now = isOpen_Now;
+        this.poster = poster;
+        this.ratings = ratings;
     }
 
     public String getAddress() {
@@ -45,11 +52,11 @@ public class tourGuideModel implements Serializable {
         this.poster = poster;
     }
 
-    public int getRatings() {
+    public String getRatings() {
         return ratings;
     }
 
-    public void setRatings(int ratings) {
+    public void setRatings(String ratings) {
         this.ratings = ratings;
     }
 }

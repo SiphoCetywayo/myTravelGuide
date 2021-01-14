@@ -1,4 +1,4 @@
-package com.example.mytravelguide;
+package com.example.mytravelguide.Fragments;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
