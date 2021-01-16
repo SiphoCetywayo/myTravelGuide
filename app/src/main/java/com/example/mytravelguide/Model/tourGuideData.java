@@ -59,4 +59,14 @@ public class tourGuideData  {
     public void setRatings(String ratings) {
         this.ratings = ratings;
     }
+
+    @Override
+    public String toString(){
+        return  "Name: " +business_Name+
+                "Address: "+address+
+                "Hours: "+isOpen_Now+
+                "Poster: "+poster+
+                "Ratings: "+ratings;
+
+    }
 }

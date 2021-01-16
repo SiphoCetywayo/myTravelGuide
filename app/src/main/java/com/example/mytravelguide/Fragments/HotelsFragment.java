@@ -38,9 +38,12 @@ import java.util.List;
 public class HotelsFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private ArrayList<tourGuideData> tourGuideDataList;
+    private List<tourGuideData> tourGuideDataList ;
     private TravelGuideRecyclerViewAdapter travelGuideRecyclerViewAdapter;
     private RequestQueue queue;
+    private StringBuilder sb;
+
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -80,17 +83,14 @@ public class HotelsFragment extends Fragment {
         queue = Volley.newRequestQueue(getContext());
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_hotels, container, false);
-
         recyclerView = view.findViewById(R.id.hotel_recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         String searchItem = Constants.Hotels_URL;
         tourGuideDataList = new ArrayList<>();
 
         tourGuideDataList = (ArrayList<tourGuideData>) getTourGuideModelList(searchItem);
-
-        travelGuideRecyclerViewAdapter = new TravelGuideRecyclerViewAdapter(getActivity(), tourGuideDataList);
+        travelGuideRecyclerViewAdapter = new TravelGuideRecyclerViewAdapter(getActivity());
         recyclerView.setAdapter(travelGuideRecyclerViewAdapter);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         return view;
     }
 
@@ -102,9 +102,9 @@ public class HotelsFragment extends Fragment {
                 hotelSearch, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                StringBuilder data = new StringBuilder();
                 try {
-
+                    String hotelUrl = Constants.hotels_photos_URL;
+                    sb = new StringBuilder(Constants.hotels_photos_URL);
                     JSONArray hotelsArray = response.getJSONArray("results");
                     JSONObject getPhotos = null;
                     for (int i = 0; i <= hotelsArray.length(); i++) {
@@ -113,21 +113,30 @@ public class HotelsFragment extends Fragment {
 
                         for (int j = 0; j < getPhotosArray.length(); j++) {
                             getPhotos = getPhotosArray.getJSONObject(j);
+                            String photo_reference = getPhotos.getString("photo_reference");
+                            String var = hotelUrl + ""+ photo_reference;
+                            var = var.concat(Constants.API_KEY);
+
+                            tourGuideData tourGuideData = new tourGuideData();
+                            String business_name = resultsObj.getString("name");
+                            String business_address = resultsObj.getString("formatted_address");
+                            String ratings = resultsObj.getString("rating");
+                            String opening_hours = "N/A";
+
+                            if (!resultsObj.isNull("opening_hours")) {
+                                opening_hours = resultsObj.getString("opening_hours");
+                            } else {
+                                tourGuideData.setOpen_Now(opening_hours);
+                            }
+
+                            tourGuideData.setPoster(var);
+                            tourGuideData.setBusiness_Name(business_name);
+                            tourGuideData.setAddress(business_address);
+                            tourGuideData.setRatings(ratings);
+                            tourGuideData.setOpen_Now(opening_hours);
+                            tourGuideDataList.add(tourGuideData);
+
                         }
-
-                        tourGuideData tourGuideData = new tourGuideData();
-                        tourGuideData.setBusiness_Name(resultsObj.getString("name"));
-                        tourGuideData.setAddress(resultsObj.getString("formatted_address"));
-                        tourGuideData.setOpen_Now(resultsObj.getString("opening_hours"));
-                        tourGuideData.setPoster(getPhotos.getString("photo_reference"));
-
-                        tourGuideData.setRatings(resultsObj.getString("rating"));
-
-/*                        data.append(tourGuideData.getBusiness_Name() + "\n"
-                                +tourGuideData.getAddress() + "\n");
-                        tourGuideDataList.add(tourGuideData);
-                        Toast toast = Toast.makeText(getContext(), data.toString(), Toast.LENGTH_LONG);
-                        toast.show();*/
                     }
 
 
@@ -135,6 +144,7 @@ public class HotelsFragment extends Fragment {
                     e.printStackTrace();
                 }
 
+                travelGuideRecyclerViewAdapter.setTourGuideDataList(tourGuideDataList);
             }
         }, new Response.ErrorListener() {
             @Override

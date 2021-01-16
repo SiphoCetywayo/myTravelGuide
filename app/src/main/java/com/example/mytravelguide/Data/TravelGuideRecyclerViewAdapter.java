@@ -18,18 +18,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TravelGuideRecyclerViewAdapter extends RecyclerView.Adapter<TravelGuideRecyclerViewAdapter.ViewHolder> {
-    private ArrayList<tourGuideData> tourGuideDataList;
     private Context mContext;
+    private List<tourGuideData> tourGuideDataList;
 
-    public TravelGuideRecyclerViewAdapter(Context context, ArrayList<tourGuideData> tourGuideDataList){
-        this.tourGuideDataList = tourGuideDataList;
+    public TravelGuideRecyclerViewAdapter(Context context){
         this.mContext = context;
+    }
+
+    public void setTourGuideDataList(List<tourGuideData> tourGuideDataList){
+        this.tourGuideDataList = tourGuideDataList;
+        notifyItemChanged(0, tourGuideDataList.size());
     }
 
     @NonNull
     @Override
     public TravelGuideRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(mContext)
                 .inflate(R.layout.hotels_list, parent, false);
         return new ViewHolder(view);
@@ -45,15 +48,21 @@ public class TravelGuideRecyclerViewAdapter extends RecyclerView.Adapter<TravelG
         holder.Trading_Hours.setText(tourGuideData.isOpen_Now());
         holder.ratings.setText(tourGuideData.getRatings());
 
-        Picasso.get()
-                .load(PosterLink)
-                .placeholder(android.R.drawable.ic_btn_speak_now)
-                .into(holder.Poster);
+
+            Picasso.get()
+                    .load(PosterLink)
+                    .placeholder(android.R.drawable.ic_btn_speak_now)
+                    .into(holder.Poster);
     }
 
     @Override
     public int getItemCount() {
-        return tourGuideDataList.size();
+        try {
+            return tourGuideDataList.size();
+        }catch (Exception e){
+
+        }
+        return 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
