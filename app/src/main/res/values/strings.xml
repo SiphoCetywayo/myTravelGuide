@@ -7,4 +7,9 @@
     <string name="Hotels_blank_fragment">Hotels fragment</string>
     <string name="Attraction_blank_fragment">Attractions fragment</string>
     <string name="Restaurant_blank_fragment">Restaurant fragment</string>
+    <string name="address">Address</string>
+    <string name="hours">Hours</string>
+    <string name="ratings">Ratings</string>
+    <string name="business_name">Business Name</string>
+    <string name="address">Address</string>
 </resources>
