@@ -84,7 +84,7 @@ public class HotelsFragment extends Fragment {
         String searchItem = Constants.Hotels_URL;
         tourGuideDataList = new ArrayList<>();
 
-        tourGuideDataList = (ArrayList<tourGuideData>) getTourGuideModelList(searchItem);
+        tourGuideDataList = getTourGuideModelList(searchItem);
         hotelGuideRecyclerViewAdapter = new HotelGuideRecyclerViewAdapter(getActivity());
         recyclerView.setAdapter(hotelGuideRecyclerViewAdapter);
         return view;
@@ -99,12 +99,13 @@ public class HotelsFragment extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    String hotel_photos_url = Constants.hotels_photos_URL;
+                    String hotel_photos_url = Constants.photos_URL;
                     JSONArray hotelsArray = response.getJSONArray("results");
-                    JSONObject getPhotos;
+
                     for (int i = 0; i <= hotelsArray.length(); i++) {
                         JSONObject resultsObj = hotelsArray.getJSONObject(i);
                         JSONArray getPhotosArray = resultsObj.getJSONArray("photos");
+                        JSONObject getPhotos;
 
                         for (int j = 0; j < getPhotosArray.length(); j++) {
                             getPhotos = getPhotosArray.getJSONObject(j);

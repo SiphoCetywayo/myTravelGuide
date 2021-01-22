@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="368dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,49 +27,49 @@
             android:padding="12dp">
 
             <ImageView
-                android:id="@+id/attractioImg"
+                android:id="@+id/restaurantsImg"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:background="@color/cardview_light_background"/>
 
             <TextView
-                android:id="@+id/business_name"
+                android:id="@+id/titleID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Business Name"
                 android:textStyle="bold"
-                android:layout_toRightOf="@+id/attractioImg"
+                android:layout_toRightOf="@+id/restaurantsImg"
                 android:paddingLeft="5dp"
                 android:layout_centerHorizontal="true"/>
 
             <TextView
-                android:id="@+id/buss_address"
+                android:id="@+id/restaurant_addressId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Address"
-                android:layout_below="@+id/business_name"
+                android:layout_below="@+id/titleID"
                 android:paddingLeft="5dp"
-                android:layout_toRightOf="@+id/attractioImg"
+                android:layout_toRightOf="@+id/restaurantsImg"
                 android:layout_centerHorizontal="true"/>
 
             <TextView
-                android:id="@+id/Attractions_hoursId"
+                android:id="@+id/restaurant_hoursId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hours"
-                android:layout_below="@+id/buss_address"
+                android:layout_below="@+id/restaurant_addressId"
                 android:paddingLeft="5dp"
-                android:layout_toRightOf="@+id/attractioImg"
+                android:layout_toRightOf="@+id/restaurantsImg"
                 android:layout_centerHorizontal="true"/>
 
             <TextView
-                android:id="@+id/buss_ratingsId"
+                android:id="@+id/restaurant_ratingsId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Ratings"
-                android:layout_below="@+id/Attractions_hoursId"
+                android:layout_below="@+id/restaurant_hoursId"
                 android:paddingLeft="5dp"
-                android:layout_toRightOf="@+id/attractioImg"
+                android:layout_toRightOf="@+id/restaurantsImg"
                 android:layout_centerHorizontal="true"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

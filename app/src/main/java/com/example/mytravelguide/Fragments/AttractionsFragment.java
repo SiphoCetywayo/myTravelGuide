@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,7 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.mytravelguide.Adapters.AttractionsGuideRecyclerview;
+import com.example.mytravelguide.Adapters.AttractionsGuideRecyclerViewAdapter;
 import com.example.mytravelguide.Model.tourGuideData;
 import com.example.mytravelguide.R;
 import com.example.mytravelguide.Utils.Constants;
@@ -39,7 +38,7 @@ public class AttractionsFragment extends Fragment {
 
     private RequestQueue requestQueue;
     private List<tourGuideData> tourGuideDataList;
-    private AttractionsGuideRecyclerview attractionsGuideRecyclerview;
+    private AttractionsGuideRecyclerViewAdapter attractionsGuideRecyclerviewAdapter;
     private RecyclerView recyclerView;
 
 
@@ -94,8 +93,8 @@ public class AttractionsFragment extends Fragment {
         tourGuideDataList = new ArrayList<>();
 
         tourGuideDataList = (ArrayList<tourGuideData>) getPlacesOfAttraction(searchItem);
-        attractionsGuideRecyclerview = new AttractionsGuideRecyclerview(getActivity());
-        recyclerView.setAdapter(attractionsGuideRecyclerview);
+        attractionsGuideRecyclerviewAdapter = new AttractionsGuideRecyclerViewAdapter(getActivity());
+        recyclerView.setAdapter(attractionsGuideRecyclerviewAdapter);
         return view;
     }
 
@@ -109,31 +108,47 @@ public class AttractionsFragment extends Fragment {
                 try {
                     JSONArray attractionsArray = response.getJSONArray("results");
                     for (int i = 0; i < attractionsArray.length(); i++) {
-                        JSONObject searchObj = attractionsArray.getJSONObject(i);
-                        String business_name = searchObj.getString("name");
-                        String business_address = searchObj.getString("formatted_address");
-                        String ratings = searchObj.getString("rating");
+                        JSONObject resultsObj = attractionsArray.getJSONObject(i);
+                        JSONArray getPhotosArray = resultsObj.getJSONArray("photos");
 
-                        tourGuideData tourGuideData = new tourGuideData();
-                        //StringBuffer sb = StringBuffer()
-                        tourGuideData.setBusiness_Name(business_name);
-                        tourGuideData.setAddress(business_address);
-                        tourGuideData.setRatings(ratings);
-                        tourGuideDataList.add(tourGuideData);
+                        for (int j = 0; j < getPhotosArray.length(); j++) {
+                            JSONObject getPhotosReference = getPhotosArray.getJSONObject(j);
+                            String Photo_reference = getPhotosReference.getString("photo_reference");
+
+                            String business_name = resultsObj.getString("name");
+                            String business_address = resultsObj.getString("formatted_address");
+                            String ratings = resultsObj.getString("rating");
+                            String opening_hours = "N/A";
+
+                            if(!resultsObj.isNull("opening_hours")){
+                               opening_hours = resultsObj.getString("opening_hours");
+                            }
+
+                            tourGuideData tourGuideData = new tourGuideData();
+                            StringBuffer sb = new StringBuffer(Constants.photos_URL);
+                            sb.append(Photo_reference);
+                            sb.append(Constants.API_KEY);
+
+                            tourGuideData.setBusiness_Name(business_name);
+                            tourGuideData.setAddress(business_address);
+                            tourGuideData.setRatings(ratings);
+                            tourGuideData.setOpen_Now(opening_hours);
+                            tourGuideData.setPoster(sb.toString());
+                            tourGuideDataList.add(tourGuideData);
+
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-               /* Toast toas = Toast.makeText(getContext(), tourGuideDataList.toString(), Toast.LENGTH_LONG);
-                toas.show();*/
-                attractionsGuideRecyclerview.setAttractionsGuidList(tourGuideDataList);
+                attractionsGuideRecyclerviewAdapter.setAttractionsGuidList(tourGuideDataList);
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.v("myError "+ error.toString());
+                VolleyLog.v("myError " + error.toString());
             }
         });
         requestQueue.add(jsonReq);

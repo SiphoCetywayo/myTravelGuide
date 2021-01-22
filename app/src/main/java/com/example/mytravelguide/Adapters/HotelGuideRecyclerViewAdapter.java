@@ -44,7 +44,7 @@ public class HotelGuideRecyclerViewAdapter extends RecyclerView.Adapter<HotelGui
 
         holder.business_Name.setText(tourGuideData.getBusiness_Name());
         holder.formatted_address.setText(tourGuideData.getAddress());
-        holder.Trading_Hours.setText("Hours" + tourGuideData.isOpen_Now());
+        holder.Trading_Hours.setText("Hours: " + tourGuideData.isOpen_Now());
         holder.ratings.setText("Ratings: " + tourGuideData.getRatings());
 
 
@@ -74,9 +74,9 @@ public class HotelGuideRecyclerViewAdapter extends RecyclerView.Adapter<HotelGui
 
             business_Name = itemView.findViewById(R.id.businessTitleId);
             formatted_address = itemView.findViewById(R.id.addressId);
-            Trading_Hours = itemView.findViewById(R.id.hoursId);
+            Trading_Hours = itemView.findViewById(R.id.Attractions_hoursId);
             ratings = itemView.findViewById(R.id.ratingsId);
-            Poster = itemView.findViewById(R.id.attractioImg);
+            Poster = itemView.findViewById(R.id.HotelImg);
         }
     }
 }
