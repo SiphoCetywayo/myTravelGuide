@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,7 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.mytravelguide.Data.TravelGuideRecyclerViewAdapter;
+import com.example.mytravelguide.Adapters.HotelGuideRecyclerViewAdapter;
 import com.example.mytravelguide.Model.tourGuideData;
 import com.example.mytravelguide.R;
 import com.example.mytravelguide.Utils.Constants;
@@ -38,11 +37,9 @@ import java.util.List;
 public class HotelsFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private List<tourGuideData> tourGuideDataList ;
-    private TravelGuideRecyclerViewAdapter travelGuideRecyclerViewAdapter;
+    private List<tourGuideData> tourGuideDataList;
+    private HotelGuideRecyclerViewAdapter hotelGuideRecyclerViewAdapter;
     private RequestQueue queue;
-    private StringBuilder sb;
-
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -81,7 +78,6 @@ public class HotelsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         queue = Volley.newRequestQueue(getContext());
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_hotels, container, false);
         recyclerView = view.findViewById(R.id.hotel_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -89,8 +85,8 @@ public class HotelsFragment extends Fragment {
         tourGuideDataList = new ArrayList<>();
 
         tourGuideDataList = (ArrayList<tourGuideData>) getTourGuideModelList(searchItem);
-        travelGuideRecyclerViewAdapter = new TravelGuideRecyclerViewAdapter(getActivity());
-        recyclerView.setAdapter(travelGuideRecyclerViewAdapter);
+        hotelGuideRecyclerViewAdapter = new HotelGuideRecyclerViewAdapter(getActivity());
+        recyclerView.setAdapter(hotelGuideRecyclerViewAdapter);
         return view;
     }
 
@@ -103,10 +99,9 @@ public class HotelsFragment extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    String hotelUrl = Constants.hotels_photos_URL;
-                    sb = new StringBuilder(Constants.hotels_photos_URL);
+                    String hotel_photos_url = Constants.hotels_photos_URL;
                     JSONArray hotelsArray = response.getJSONArray("results");
-                    JSONObject getPhotos = null;
+                    JSONObject getPhotos;
                     for (int i = 0; i <= hotelsArray.length(); i++) {
                         JSONObject resultsObj = hotelsArray.getJSONObject(i);
                         JSONArray getPhotosArray = resultsObj.getJSONArray("photos");
@@ -114,7 +109,7 @@ public class HotelsFragment extends Fragment {
                         for (int j = 0; j < getPhotosArray.length(); j++) {
                             getPhotos = getPhotosArray.getJSONObject(j);
                             String photo_reference = getPhotos.getString("photo_reference");
-                            String var = hotelUrl + ""+ photo_reference;
+                            String var = hotel_photos_url + ""+ photo_reference;
                             var = var.concat(Constants.API_KEY);
 
                             tourGuideData tourGuideData = new tourGuideData();
@@ -125,6 +120,7 @@ public class HotelsFragment extends Fragment {
 
                             if (!resultsObj.isNull("opening_hours")) {
                                 opening_hours = resultsObj.getString("opening_hours");
+
                             } else {
                                 tourGuideData.setOpen_Now(opening_hours);
                             }
@@ -138,13 +134,11 @@ public class HotelsFragment extends Fragment {
 
                         }
                     }
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                travelGuideRecyclerViewAdapter.setTourGuideDataList(tourGuideDataList);
+                hotelGuideRecyclerViewAdapter.setTourGuideDataList(tourGuideDataList);
             }
         }, new Response.ErrorListener() {
             @Override

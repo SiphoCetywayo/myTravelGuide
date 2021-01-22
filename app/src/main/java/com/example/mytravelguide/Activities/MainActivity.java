@@ -6,7 +6,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 
-import com.example.mytravelguide.Fragments.PageAdapter;
+import com.example.mytravelguide.Adapters.PageAdapter;
 import com.example.mytravelguide.R;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
@@ -38,8 +38,6 @@ public class MainActivity extends AppCompatActivity {
         PageAdapter pageAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pageAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
-
     }
 
 }

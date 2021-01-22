@@ -1,9 +1,13 @@
-package com.example.mytravelguide.Fragments;
+package com.example.mytravelguide.Adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
+import com.example.mytravelguide.Fragments.AttractionsFragment;
+import com.example.mytravelguide.Fragments.HotelsFragment;
+import com.example.mytravelguide.Fragments.RestaurantsFragment;
 
 /*Note: Android FragmentPagerAdapter is used when you have a limited number of tabs that you want to swipe through.
 If you have a dynamic tabs then you need to use Android FragmentStatePagerAdapter.*/

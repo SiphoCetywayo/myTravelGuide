@@ -1,4 +1,4 @@
-package com.example.mytravelguide.Data;
+package com.example.mytravelguide.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,52 +14,48 @@ import com.example.mytravelguide.Model.tourGuideData;
 import com.example.mytravelguide.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class TravelGuideRecyclerViewAdapter extends RecyclerView.Adapter<TravelGuideRecyclerViewAdapter.ViewHolder> {
-    private Context mContext;
+public class HotelGuideRecyclerViewAdapter extends RecyclerView.Adapter<HotelGuideRecyclerViewAdapter.ViewHolder> {
     private List<tourGuideData> tourGuideDataList;
+    private Context mContext;
 
-    public TravelGuideRecyclerViewAdapter(Context context){
+    public HotelGuideRecyclerViewAdapter(Context context) {
         this.mContext = context;
     }
 
-    public void setTourGuideDataList(List<tourGuideData> tourGuideDataList){
+    public void setTourGuideDataList(List<tourGuideData> tourGuideDataList) {
         this.tourGuideDataList = tourGuideDataList;
         notifyItemChanged(0, tourGuideDataList.size());
     }
 
     @NonNull
     @Override
-    public TravelGuideRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public HotelGuideRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext)
                 .inflate(R.layout.hotels_list, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TravelGuideRecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HotelGuideRecyclerViewAdapter.ViewHolder holder, int position) {
         tourGuideData tourGuideData = tourGuideDataList.get(position);
         String PosterLink = tourGuideData.getPoster();
 
         holder.business_Name.setText(tourGuideData.getBusiness_Name());
         holder.formatted_address.setText(tourGuideData.getAddress());
-        holder.Trading_Hours.setText(tourGuideData.isOpen_Now());
-        holder.ratings.setText(tourGuideData.getRatings());
+        holder.Trading_Hours.setText("Hours" + tourGuideData.isOpen_Now());
+        holder.ratings.setText("Ratings: " + tourGuideData.getRatings());
 
 
-            Picasso.get()
-                    .load(PosterLink)
-                    .placeholder(android.R.drawable.ic_btn_speak_now)
-                    .into(holder.Poster);
+        Picasso.get().load(PosterLink).placeholder(android.R.drawable.ic_btn_speak_now).into(holder.Poster);
     }
 
     @Override
     public int getItemCount() {
         try {
             return tourGuideDataList.size();
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         return 0;
@@ -80,7 +76,7 @@ public class TravelGuideRecyclerViewAdapter extends RecyclerView.Adapter<TravelG
             formatted_address = itemView.findViewById(R.id.addressId);
             Trading_Hours = itemView.findViewById(R.id.hoursId);
             ratings = itemView.findViewById(R.id.ratingsId);
-            Poster = itemView.findViewById(R.id.hotelImg);
+            Poster = itemView.findViewById(R.id.attractioImg);
         }
     }
 }
