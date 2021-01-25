@@ -12,11 +12,12 @@ import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener{
     TabLayout tabLayout;
     TabItem tabHotels;
     TabItem tabAttractions;
     TabItem tabRestaurants;
+    TabItem tabPharmacy;
     ViewPager viewPager;
 
 
@@ -29,17 +30,33 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle(getResources().getString(R.string.app_name));
 
         tabLayout = findViewById(R.id.tabLayout);
-        tabHotels = findViewById(R.id.tabAccommodations);
-        tabAttractions = findViewById(R.id.tabAttractions);
-        tabRestaurants = findViewById(R.id.tabRestaurants);
+        tabLayout.addTab(tabLayout.newTab().setText("Hotels"));
+        tabLayout.addTab(tabLayout.newTab().setText("Attractions"));
+        tabLayout.addTab(tabLayout.newTab().setText("Restaurants"));
+        tabLayout.addTab(tabLayout.newTab().setText("Amusement_Parks"));
         viewPager = findViewById(R.id.viewPager);
 
 
         PageAdapter pageAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pageAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(this);
     }
 
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+         viewPager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
+    }
 }
 
 

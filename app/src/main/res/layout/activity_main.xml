@@ -26,31 +26,14 @@
         tools:ignore="MissingConstraints"
         app:textAllCaps="true"
         app:tabSelectedTextColor="@android:color/white"
-        app:tabTextColor="@android:color/black">
+        app:tabTextColor="@android:color/black"
+         app:tabMode="scrollable"
+         app:tabGravity="fill">
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabAccommodations"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/accommodation"/>
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabAttractions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:textAllCaps="true"
-            android:text="@string/attractions" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabRestaurants"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:textAllCaps="true"
-            android:text="@string/restaurants"/>
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"/>
 </LinearLayout>

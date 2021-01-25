@@ -1,15 +1,17 @@
 <resources>
     <string name="app_name">myTravelGuide</string>
-    <string name="attractions">Attractions</string>
-    <string name="restaurants">Restaurants</string>
+    <string name="attractions">Attraction</string>
+    <string name="restaurants">Restaurant</string>
     <string name="accommodation">Hotels</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="Hotels_blank_fragment">Hotels fragment</string>
     <string name="Attraction_blank_fragment">Attractions fragment</string>
     <string name="Restaurant_blank_fragment">Restaurant fragment</string>
-    <string name="address">Address</string>
     <string name="hours">Hours</string>
     <string name="ratings">Ratings</string>
     <string name="business_name">Business Name</string>
     <string name="address">Address</string>
+    <string name="pharmacy">Pharmacy</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
