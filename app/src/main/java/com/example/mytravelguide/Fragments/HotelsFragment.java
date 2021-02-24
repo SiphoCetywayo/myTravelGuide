@@ -84,7 +84,7 @@ public class HotelsFragment extends Fragment {
         String searchItem = Constants.Hotels_URL;
         tourGuideDataList = new ArrayList<>();
 
-        tourGuideDataList = getTourGuideModelList(searchItem);
+        tourGuideDataList = getTourGuideModelList(searchItem.concat(Constants.API_KEY));
         hotelGuideRecyclerViewAdapter = new HotelGuideRecyclerViewAdapter(getActivity());
         recyclerView.setAdapter(hotelGuideRecyclerViewAdapter);
         return view;

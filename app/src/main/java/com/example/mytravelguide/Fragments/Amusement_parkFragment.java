@@ -89,7 +89,7 @@ public class Amusement_parkFragment extends Fragment {
         String searchItem = Constants.AmusementParks_URL;
         tourGuideDataList = new ArrayList<>();
 
-        tourGuideDataList = getAmusementParks(searchItem);
+        tourGuideDataList = getAmusementParks(searchItem.concat(Constants.API_KEY));
         amusement_parksRecyclerViewAdapter = new Amusement_parksRecyclerViewAdapter(getActivity());
         amusementParkRecyclerView.setAdapter(amusement_parksRecyclerViewAdapter);
         return view;

@@ -92,7 +92,7 @@ public class AttractionsFragment extends Fragment {
         String searchItem = Constants.Attractions_URL;
         tourGuideDataList = new ArrayList<>();
 
-        tourGuideDataList = (ArrayList<tourGuideData>) getPlacesOfAttraction(searchItem);
+        tourGuideDataList = (ArrayList<tourGuideData>) getPlacesOfAttraction(searchItem.concat(Constants.API_KEY));
         attractionsGuideRecyclerviewAdapter = new AttractionsGuideRecyclerViewAdapter(getActivity());
         recyclerView.setAdapter(attractionsGuideRecyclerviewAdapter);
         return view;

@@ -90,7 +90,7 @@ public class RestaurantsFragment extends Fragment {
         String searchItem = Constants.Restaurants_URL;
         tourGuideDataList = new ArrayList<>();
 
-        tourGuideDataList = (ArrayList<tourGuideData>) getRestaurentList(searchItem);
+        tourGuideDataList = (ArrayList<tourGuideData>) getRestaurentList(searchItem.concat(Constants.API_KEY));
         restaurantsGuideRecyclerViewAdapter = new RestaurantsGuideRecyclerViewAdapter(getActivity());
         restaurant_recyclerview.setAdapter(restaurantsGuideRecyclerViewAdapter);
         return view;
