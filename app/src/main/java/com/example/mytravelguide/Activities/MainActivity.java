@@ -14,10 +14,6 @@ import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener{
     TabLayout tabLayout;
-    TabItem tabHotels;
-    TabItem tabAttractions;
-    TabItem tabRestaurants;
-    TabItem tabPharmacy;
     ViewPager viewPager;
 
 
